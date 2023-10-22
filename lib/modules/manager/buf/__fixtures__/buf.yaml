@@ -1,0 +1,5 @@
+version: v1
+name: buf.build/acme/renovate
+deps:
+  - buf.build/thegrumpylion/renovate-test
+  - buf.build/googleapis/googleapis:f68e8e84be23e64152c43cb4b31d53f5e8cb64ac

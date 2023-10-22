@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/duration.proto";
+
+service AudioService {
+  rpc ListAudios(ListAudiosRequest) returns (ListAudiosResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/Audios"
+    };
+  }
+
+  rpc GetAudio(GetAudioRequest) returns (Audio) {
+    option (google.api.http) = {
+      get: "/v1alpha1/{name=Audios/*}"
+    };
+  }
+
+  rpc CreateAudio(CreateAudioRequest) returns (Audio) {
+    option (google.api.http) = {
+      post: "/v1alpha1/Audios"
+      body: "Audio"
+    };
+  }
+
+  rpc UpdateAudio(UpdateAudioRequest) returns (Audio) {
+    option (google.api.http) = {
+      patch: "/v1alpha1/{Audio.name=Audios/*}"
+      body: "Audio"
+    };
+  }
+
+  rpc DeleteAudio(DeleteAudioRequest) returns (DeleteAudioResponse) {
+    option (google.api.http) = {
+      delete: "/v1alpha1/{name=Audios/*}"
+    };
+  }
+}
+
+message Audio {
+  string id = 1;
+  string name = 2;
+  bytes content = 3;
+}
+
+message ListAudiosRequest {
+  // The maximum number of items to return.
+  int32 page_size = 1;
+
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 2;
+}
+
+message ListAudiosResponse {
+  // The field name should match the noun "Audio" in the method name.
+  // There will be a maximum number of items returned based on the page_size field in the request.
+  repeated Audio items = 1;
+
+  // Token to retrieve the next page of results, or empty if there are no more results in the list.
+  string next_page_token = 2;
+}
+
+message GetAudioRequest {
+  // The field will contain name of the resource requested.
+  string id = 1;
+}
+
+message CreateAudioRequest {
+  // The Audio resource to create.
+  // The field name should match the Noun in the method name.
+  Audio audio = 1;
+}
+
+message UpdateAudioRequest {
+  // The Audio resource which replaces the resource on the server.
+  Audio audio = 1;
+
+  // The update mask applies to the resource. For the `FieldMask` definition,
+  // see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+message DeleteAudioRequest {
+  // The resource name of the Audio to be deleted.
+  string id = 1;
+}
+
+message DeleteAudioResponse {
+  // The resource name of the Audio to be deleted.
+  string id = 1;
+}
+
