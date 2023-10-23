@@ -3,13 +3,14 @@ import { load } from 'js-yaml';
 import { logger } from '../../../logger';
 import { getSiblingFileName, localPathExists } from '../../../util/fs';
 import { BsrDatasource } from '../../datasource/bsr';
-import type { PackageDependency, PackageFile } from '../types';
+import type { ExtractConfig, PackageDependency, PackageFileContent } from '../types';
 
 export async function extractPackageFile(
   content: string,
-  fileName: string
-): Promise<PackageFile | null> {
-  logger.trace({ content }, 'gomod.extractPackageFile()');
+  fileName: string,
+  config: ExtractConfig
+): Promise<PackageFileContent | null> {
+  logger.trace({ content }, 'buf.extractPackageFile()');
 
   let bufyaml: {
     version: string;
@@ -43,12 +44,12 @@ export async function extractPackageFile(
     const [pkg, ver] = dep.split(':');
     const res: PackageDependency = {
       depName: pkg,
-      currentValue: ver === undefined ? 'latest' : ver,
+      currentValue: ver,
     };
     return res;
   });
 
-  const res: PackageFile = {
+  const res: PackageFileContent = {
     deps,
     datasource: BsrDatasource.id,
     packageFileVersion,

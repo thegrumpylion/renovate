@@ -17,7 +17,7 @@ export class BsrDatasource extends Datasource {
     { packageName }: DigestConfig,
     value?: string | null
   ): Promise<string | null> {
-    return null;
+    return Promise.resolve(null);
   }
 
   @cache({
@@ -27,6 +27,6 @@ export class BsrDatasource extends Datasource {
     key: ({ packageName }: Partial<DigestConfig>) => `${packageName}-digest`,
   })
   getReleases(config: GetReleasesConfig): Promise<ReleaseResult | null> {
-    return null;
+    return Promise.resolve(null);
   }
 }

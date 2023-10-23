@@ -9,33 +9,33 @@ import "google/protobuf/duration.proto";
 service AudioService {
   rpc ListAudios(ListAudiosRequest) returns (ListAudiosResponse) {
     option (google.api.http) = {
-      get: "/v1alpha1/Audios"
+      get : "/v1alpha1/Audios"
     };
   }
 
   rpc GetAudio(GetAudioRequest) returns (Audio) {
     option (google.api.http) = {
-      get: "/v1alpha1/{name=Audios/*}"
+      get : "/v1alpha1/{name=Audios/*}"
     };
   }
 
   rpc CreateAudio(CreateAudioRequest) returns (Audio) {
     option (google.api.http) = {
-      post: "/v1alpha1/Audios"
-      body: "Audio"
+      post : "/v1alpha1/Audios"
+      body : "Audio"
     };
   }
 
   rpc UpdateAudio(UpdateAudioRequest) returns (Audio) {
     option (google.api.http) = {
-      patch: "/v1alpha1/{Audio.name=Audios/*}"
-      body: "Audio"
+      patch : "/v1alpha1/{Audio.name=Audios/*}"
+      body : "Audio"
     };
   }
 
   rpc DeleteAudio(DeleteAudioRequest) returns (DeleteAudioResponse) {
     option (google.api.http) = {
-      delete: "/v1alpha1/{name=Audios/*}"
+      delete : "/v1alpha1/{name=Audios/*}"
     };
   }
 }
@@ -56,10 +56,12 @@ message ListAudiosRequest {
 
 message ListAudiosResponse {
   // The field name should match the noun "Audio" in the method name.
-  // There will be a maximum number of items returned based on the page_size field in the request.
+  // There will be a maximum number of items returned based on the page_size
+  // field in the request.
   repeated Audio items = 1;
 
-  // Token to retrieve the next page of results, or empty if there are no more results in the list.
+  // Token to retrieve the next page of results, or empty if there are no more
+  // results in the list.
   string next_page_token = 2;
 }
 
@@ -79,17 +81,19 @@ message UpdateAudioRequest {
   Audio audio = 1;
 
   // The update mask applies to the resource. For the `FieldMask` definition,
-  // see https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
+  // see
+  // https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask
   google.protobuf.FieldMask update_mask = 2;
 }
 
 message DeleteAudioRequest {
   // The resource name of the Audio to be deleted.
   string id = 1;
+  // Forcing deletion of the Audio.
+  bool force = 2;
 }
 
 message DeleteAudioResponse {
   // The resource name of the Audio to be deleted.
   string id = 1;
 }
-
