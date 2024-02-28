@@ -3,7 +3,7 @@ const Visibility = {
   VISIBILITY_PUBLIC: 1,
   VISIBILITY_PRIVATE: 2,
 } as const;
-type Visibility = typeof Visibility[keyof typeof Visibility];
+type Visibility = (typeof Visibility)[keyof typeof Visibility];
 
 export interface Repository {
   // primary key, unique, immutable

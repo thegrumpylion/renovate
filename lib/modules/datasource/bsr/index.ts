@@ -22,8 +22,6 @@ export class BsrDatasource extends Datasource {
 
   @cache({
     namespace: `datasource-${BsrDatasource.id}`,
-    // TODO: types (#7154)
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     key: ({ packageName }: Partial<DigestConfig>) => `${packageName}-digest`,
   })
   getReleases(config: GetReleasesConfig): Promise<ReleaseResult | null> {

@@ -1,6 +1,13 @@
 import { logger } from '../../../logger';
 import type { Http } from '../../../util/http';
-import type { GetRepositoryByFullNameRequest, GetRepositoryCommitByReferenceRequest, ListRepositoryTagsRequest, Repository, RepositoryCommit, RepositoryTag } from './types';
+import type {
+  GetRepositoryByFullNameRequest,
+  GetRepositoryCommitByReferenceRequest,
+  ListRepositoryTagsRequest,
+  Repository,
+  RepositoryCommit,
+  RepositoryTag,
+} from './types';
 
 export class Bsr {
   constructor(http: Http, token: string) {
@@ -17,7 +24,7 @@ export class Bsr {
     try {
       const req: GetRepositoryByFullNameRequest = {
         fullName: name,
-      }
+      };
       const body = (
         await this.http.postJson<{ repository: Repository }>(url, {
           body: req,
@@ -31,7 +38,11 @@ export class Bsr {
     }
   }
 
-  async getRepositoryCommitByReference(repoOwner: string, repoName: string, ref: string): Promise<RepositoryCommit | null> {
+  async getRepositoryCommitByReference(
+    repoOwner: string,
+    repoName: string,
+    ref: string
+  ): Promise<RepositoryCommit | null> {
     const url =
       'https://api.buf.build/buf.alpha.registry.v1alpha1.RepositoryCommitService/GetRepositoryCommitByReference';
     try {
@@ -39,7 +50,7 @@ export class Bsr {
         repositoryOwner: repoOwner,
         repositoryName: repoName,
         reference: ref,
-      }
+      };
       const body = (
         await this.http.postJson<{ repositoryCommit: RepositoryCommit }>(url, {
           body: req,
@@ -61,7 +72,7 @@ export class Bsr {
         repositoryId: repoId,
         pageSize: 100,
         reverse: true,
-      }
+      };
       const body = (
         await this.http.postJson<{ repositoryTags: RepositoryTag[] }>(url, {
           body: req,

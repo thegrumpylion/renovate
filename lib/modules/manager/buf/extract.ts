@@ -3,12 +3,11 @@ import { load } from 'js-yaml';
 import { logger } from '../../../logger';
 import { getSiblingFileName, localPathExists } from '../../../util/fs';
 import { BsrDatasource } from '../../datasource/bsr';
-import type { ExtractConfig, PackageDependency, PackageFileContent } from '../types';
+import type { PackageDependency, PackageFileContent } from '../types';
 
 export async function extractPackageFile(
   content: string,
-  fileName: string,
-  config: ExtractConfig
+  fileName: string
 ): Promise<PackageFileContent | null> {
   logger.trace({ content }, 'buf.extractPackageFile()');
 
